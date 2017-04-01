@@ -2,6 +2,8 @@ package repository;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,4 +40,9 @@ public class RepositoryProjeto {
 		return projetos.get(codigo);
 	}
 
+	public HashMap<Integer, Projeto> getProjetos() {
+		return projetos;
+	}
+	
+	
 }

@@ -39,14 +39,20 @@ public class ExcecoesProjetos {
 	private static final String ERRO_FORMATO_HORA = "Formato de data invalido";
 	public static final String ERRO_INT_DOUBLE = "Valor invalido";
 	public static final String ERRO_NAO_PODE_SER = " nao pode ser vazio ou nulo";
+	private static final String ERRO_VALOR_NEGATIVO = "valor negativo";
 
 
-	
+	public static void validaValores(double valor) throws ProjetoInvalidoException{
+		if(valor < 0){
+			throw new ProjetoInvalidoException(ERRO_VALOR_NEGATIVO);
+		}
+	}
 	public static void procuraProjeto(Projeto pessoa) throws PessoaInvalidaException{
 		if(pessoa==null){
 			throw new PessoaInvalidaException(ERRO_PROJETO_INEXISTENTE);
 		}
 	}
+	
 	public static void validaPatentes(int patentes) throws EntradaInvalidaException{
 		if(patentes < 0){
 			throw new EntradaInvalidaException(ERRO_NUMERO_PATENTES);

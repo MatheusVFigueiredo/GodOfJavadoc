@@ -36,10 +36,12 @@ public class ProjetoController {
 
 	private FactoryProjeto factoryProjeto;
 	private RepositoryProjeto repositoryProjeto;
+	private double diminuirReceita;
 
 	public ProjetoController() {
 		this.factoryProjeto = new FactoryProjeto();
 		this.repositoryProjeto = new RepositoryProjeto();
+		diminuirReceita = 0;
 	}
 
 	public RepositoryProjeto getRepository() {
@@ -354,4 +356,70 @@ public class ProjetoController {
 			throw new ProjetoInvalidoException(Util.ERRO_CONSULTA_PROJETO + e.getMessage());
 		}
 	}
+	
+	
+	public void atualizaDespesas(int codigo, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ProjetoInvalidoException{
+		try{
+			Projeto projeto = repositoryProjeto.getProjeto(codigo);
+			ExcecoesProjetos.validaProjeto(projeto);
+			projeto.getDespesas().setMontanteBolsas(montanteBolsas);
+			projeto.getDespesas().setMontanteCapital(montanteCapital);
+			projeto.getDespesas().setMontanteCusteio(montanteCusteio);
+			
+		}catch(Exception e){
+			throw new ProjetoInvalidoException(Util.ERRO_ATUALIZAO_PROJETO + e.getMessage());
+		}
+	}
+	
+	public double calculaColaboracao(int codigo) throws ProjetoInvalidoException{
+		try{
+			Projeto projeto = repositoryProjeto.getProjeto(codigo);
+			if((projetoIsento(projeto))){ return 0; }
+			double aux = 0.1;
+			if(projeto instanceof Extensao){
+				aux -= 0.005*((Extensao) projeto).getImpacto();
+			}
+			if(projeto instanceof PED){
+				if(((PED) projeto).getPatentes() > 0){
+					aux += 0.03;
+				}
+				if(((PED) projeto).getProdTecnica() > 0){
+					aux += ((PED) projeto).getProdTecnica() * 0.003;
+				}
+				if(((PED) projeto).getProdAcademica() > 0){
+					aux -= ((PED) projeto).getProdAcademica() * 0.002;
+				}
+			}
+			return projeto.getDespesas().getValorTotal()*aux;
+		}catch(Exception e){
+			throw new ProjetoInvalidoException();
+		}
+	}
+	
+	public double totalValorColaboracao() throws ProjetoInvalidoException{
+		double aux = 0;
+		for(Projeto projeto : repositoryProjeto.getProjetos().values()){
+			aux += calculaColaboracao(projeto.getCodigo());
+		}
+		return aux;
+	}
+	
+	private boolean projetoIsento(Projeto projeto){
+		if(projeto.getDespesas().getMontanteCapital() <= 10.000 && projeto.getDespesas().getMontanteCusteio() <= 10000){
+			return true;
+		}else if(projeto instanceof PET || projeto instanceof Monitoria){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void diminuirReceita(double receita){
+		diminuirReceita = receita;
+	}
+	
+	public double totalValorCaixa() throws ProjetoInvalidoException{
+		return totalValorColaboracao() - diminuirReceita;
+	}
+	
 }

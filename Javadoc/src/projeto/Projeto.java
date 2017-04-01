@@ -43,6 +43,7 @@ public abstract class Projeto {
 	private int duracao;
 	private ArrayList<Pessoa> colecaoParticipantes;
 	private int codigo;
+	private Despesas despesas;
 
 	public Projeto(int codigo, String nome, String objetivo, Date data, int duracao) throws EntradaInvalidaException, StringInvalidaException {
 
@@ -56,7 +57,19 @@ public abstract class Projeto {
 		this.duracao = duracao;
 		this.codigo = codigo;
 		colecaoParticipantes = new ArrayList<>();
+		this.despesas = new Despesas();
 	}
+	
+	public Despesas getDespesas() {
+		return despesas;
+	}
+
+
+	public void setDespesas(Despesas despesas) {
+		this.despesas = despesas;
+	}
+
+
 
 	public String getNomesParticipacao() {
 		if (colecaoParticipantes.size() == 0) {

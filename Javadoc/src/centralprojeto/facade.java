@@ -9,6 +9,7 @@ import controllers.PessoaController;
 import controllers.ProjetoController;
 import easyaccept.EasyAccept;
 import exception.EntradaInvalidaException;
+import exception.ProjetoInvalidoException;
 import exception.StringInvalidaException;
 
 /**
@@ -44,7 +45,7 @@ public class facade {
 		controllerPessoa = new PessoaController();
 		controllerProjeto = new ProjetoController();
 		controllerParticipacao = new ParticipacaoController(controllerPessoa.getRepository(),
-				controllerProjeto.getRepository());
+		controllerProjeto.getRepository());
 	}
 
 	/**
@@ -461,13 +462,33 @@ public class facade {
 	public double getValorBolsa(String cpf) {
 		return controllerParticipacao.getValorBolsa(cpf);
 	}
-
+	
+	public void atualizaDespesasProjeto(int codigo, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ProjetoInvalidoException{
+		controllerProjeto.atualizaDespesas(codigo, montanteBolsas, montanteCusteio, montanteCapital);
+	}
+	
+	public double calculaColaboracaoUASC(int codigo) throws ProjetoInvalidoException{
+		return controllerProjeto.calculaColaboracao(codigo);
+	}
+	
+	public double calculaColaboracaoTotalUASC() throws ProjetoInvalidoException{
+		return controllerProjeto.totalValorColaboracao();
+	}
+	
+	public void diminuiReceita(double valor){
+		controllerProjeto.diminuirReceita(valor);
+	}
+	
+	public double calculaTotalEmCaixaUASC() throws ProjetoInvalidoException{
+		return controllerProjeto.totalValorCaixa();
+	}
+	
 	public static void main(String[] args) {
 		args = new String[] { "centralprojeto.facade", "acceptance_tests/us1_test.txt",
 				"acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt",
 				"acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt",
 				"acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt",
-				"acceptance_tests/us5_test.txt" };
+				"acceptance_tests/us5_test.txt", "acceptance_tests/us6_test.txt"};
 		EasyAccept.main(args);
 	}
 }

@@ -1,33 +1,51 @@
 package projeto;
 
+import exception.ProjetoInvalidoException;
 import util.ExcecoesProjetos;
 import util.Util;
 
 public class Despesas {
-	private double valor;
-	private String descricao;
+	private double montanteBolsas;
+	private double montanteCusteio;
+	private double montanteCapital;
 
-	public Despesas(double valor, String descricao) throws Exception {
-			
-		this.valor = valor;
-		this.descricao = descricao;
+	public Despesas(double montanteBolsas, double montanteCusteio, double montanteCapital)  {
+		this.montanteBolsas = montanteBolsas;
+		this.montanteCusteio = montanteCusteio;
+		this.montanteCapital = montanteCapital;
 	}
 
-	public double getValor() {
-		return valor;
+	public Despesas() {
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public double getMontanteBolsas() {
+		return montanteBolsas;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public void setMontanteBolsas(double montanteBolsas) throws ProjetoInvalidoException {
+		ExcecoesProjetos.validaValores(montanteCapital);
+		this.montanteBolsas = montanteBolsas;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public double getMontanteCusteio() {
+		return montanteCusteio;
 	}
-	
-	
+
+	public void setMontanteCusteio(double montanteCusteio) throws ProjetoInvalidoException {
+		ExcecoesProjetos.validaValores(montanteCusteio);
+		this.montanteCusteio = montanteCusteio;
+	}
+
+	public double getMontanteCapital() {
+		return montanteCapital;
+	}
+
+	public void setMontanteCapital(double montanteCapital) throws ProjetoInvalidoException {
+		ExcecoesProjetos.validaValores(montanteCapital);
+		this.montanteCapital = montanteCapital;
+	}
+
+	public double getValorTotal(){
+		return this.getMontanteBolsas() + this.getMontanteCapital() + this.getMontanteCusteio();
+	}
 }
