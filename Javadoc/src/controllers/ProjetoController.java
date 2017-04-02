@@ -358,6 +358,22 @@ public class ProjetoController {
 	}
 	
 	
+	/**
+	 * atualizaDespesas.
+	 * Metodo que atribui valores para as despesas do projeto.
+	 *
+	 * @param codigo
+	 *            - codigo do projeto do projeto.
+	 * @param montanteBolsas
+	 *            - Valor referente as Bolsas.
+	 * @param montanteCusteio
+	 *            - Valor referente ao custeio.
+	 * @param montanteCapital
+	 *            - Valor Referente ao capital.
+	 * @throws Exception
+	 *             - excecao lancada caso ocorra algum erro.
+	 */
+	
 	public void atualizaDespesas(int codigo, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ProjetoInvalidoException{
 		try{
 			Projeto projeto = repositoryProjeto.getProjeto(codigo);
@@ -370,6 +386,18 @@ public class ProjetoController {
 			throw new ProjetoInvalidoException(Util.ERRO_ATUALIZAO_PROJETO + e.getMessage());
 		}
 	}
+	
+	/**
+	 * calculaColaboracao.
+	 * Metodo que calcula a colaboracao do projeto.
+	 *
+	 * @param codigo
+	 *            - codigo do projeto.
+	 * @return 
+	 *            - Valor da colaboracao.
+	 * @throws Exception
+	 *             - excecao lancada caso ocorra algum erro.
+	 */
 	
 	public double calculaColaboracao(int codigo) throws ProjetoInvalidoException{
 		try{
@@ -396,6 +424,16 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * totalValorColaboracao.
+	 * Metodo que calcula o valor de todas as colaboracoes.
+	 * 
+	 * @return 
+	 *            - Valor total das colaboracoes.
+	 * @throws Exception
+	 *             - excecao lancada caso ocorra algum erro.
+	 */
+	
 	public double totalValorColaboracao() throws ProjetoInvalidoException{
 		double aux = 0;
 		for(Projeto projeto : repositoryProjeto.getProjetos().values()){
@@ -403,6 +441,17 @@ public class ProjetoController {
 		}
 		return aux;
 	}
+	
+
+	/**
+	 * projetoIsento.
+	 * Metodo que verifica se o projeto e isento.
+	 *
+	 * @param projeto
+	 *            - projeto a ser verificado.
+	 * @return 
+	 *            - Indicacao se o projeto e isento ou nao.
+	 */
 	
 	private boolean projetoIsento(Projeto projeto){
 		if(projeto.getDespesas().getMontanteCapital() <= 10.000 && projeto.getDespesas().getMontanteCusteio() <= 10000){
@@ -414,9 +463,27 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * diminuirReceita.
+	 * Metodo que retira um determinado valor da receita.
+	 *
+	 * @param receita
+	 *            - valor a ser retirado.
+	 */
+	
 	public void diminuirReceita(double receita){
 		diminuirReceita = receita;
 	}
+	
+	/**
+	 * totalValorCaixa.
+	 * Metodo que mostra o valor total da colaboração com a subtração da receita.
+	 * 
+	 * @return 
+	 *            - Valor total do caixa.
+	 * @throws Exception
+	 *             - excecao lancada caso ocorra algum erro.
+	 */
 	
 	public double totalValorCaixa() throws ProjetoInvalidoException{
 		return totalValorColaboracao() - diminuirReceita;

@@ -7,13 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pessoa.Pessoa;
-import pessoa.RepositoryPessoa;
+import repository.RepositoryPessoa;
 
 public class RepositoryPessoaTeste {
 
-	private String stringGenerica;
-	private boolean testeBoolean;
-	private boolean testeBoolean2;
 	private RepositoryPessoa repository;
 	private Pessoa pessoa;
 	private Pessoa pessoa2;
@@ -26,11 +23,10 @@ public class RepositoryPessoaTeste {
 
 	@Test
 	public void testVerificaCpfCadastrado() {
-
-		testeBoolean2 = false;
-		testeBoolean = repository.verificaCpfCadastrado("024.685.014-52");
-		Assert.assertEquals(testeBoolean2, testeBoolean);
-
+		
+		Assert.assertFalse(repository.verificaCpfCadastrado("024.685.014-52"));
+		repository.adicionaPessoa(pessoa);
+		Assert.assertTrue(repository.verificaCpfCadastrado("024.685.014-52"));
 	}
 
 	@Test

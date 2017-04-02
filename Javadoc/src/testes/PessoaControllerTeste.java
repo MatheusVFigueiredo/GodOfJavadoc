@@ -6,42 +6,24 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import factory.FactoryPessoa;
-import pessoa.Pessoa;
-import pessoa.PessoaController;
-import pessoa.RepositoryPessoa;
+import controllers.PessoaController;
+import exception.PessoaInvalidaException;
 
 public class PessoaControllerTeste {
-
-	private FactoryPessoa factoryPessoa;
-	private Pessoa pessoa;
-	private Pessoa pessoa2;
-	private PessoaController pessoaController;
-	private String stringGenerica;
-	private RepositoryPessoa repository;
+	
+	private PessoaController controller;
 
 	@Before
 	public void setUp() throws Exception {
-		pessoa = new Pessoa("024.685.014-52", "Dilma", "LulaLindo@gmail.com");
-		factoryPessoa = new FactoryPessoa();
-		pessoaController = new PessoaController();
-		repository = new RepositoryPessoa();
+		
+		controller = new PessoaController();
 	}
 
 	@Test
-	public void testCadastraPessoa() throws Exception {
-
-		stringGenerica = pessoaController.cadastraPessoa("024.685.014-52", "Dilma", "LulaLindo@gmail.com");
-		Assert.assertEquals("024.685.014-52", stringGenerica);
-
+	public void testCadastraPessoa() throws PessoaInvalidaException {
+		
+		Assert.assertEquals("024.685.014-52", controller.cadastraPessoa("024.685.014-52", "Dilma", "LulaLindo@gmail.com"));
 	}
-
-	@Test
-	public void testCriaPessoa() throws Exception {
-
-		pessoa2 = pessoaController.criaPessoa("024.685.014-52", "Dilma", "LulaLindo@gmail.com");
-		Assert.assertEquals(pessoa, pessoa2);
-
-	}
+	
 
 }

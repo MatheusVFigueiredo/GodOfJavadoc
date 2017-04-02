@@ -4,6 +4,21 @@ import exception.ProjetoInvalidoException;
 import util.ExcecoesProjetos;
 import util.Util;
 
+/**
+ * Despesas.
+ * Classe onde se armazena cada valor recebido pelo projeto.
+ *
+ * @author Matheus de Souza Coutinho
+ * @author Matheus Vasconcelos Figueiredo
+ * 
+ * @param montanteBolsas
+ *           - Valor referente as Bolsas.
+ * @param montanteCusteio
+ *           - Valor referente ao custeio.
+ * @param montanteCapital
+ *           - Valor Referente ao capital.    
+ */
+
 public class Despesas {
 	private double montanteBolsas;
 	private double montanteCusteio;

@@ -39,6 +39,10 @@ public class Monitoria extends Projeto {
 		this.periodoLetivo = periodoLetivo;
 	}
 
+	public Monitoria(){
+		
+	}
+
 	public String getDiscEspec() {
 		return discEspec;
 	}

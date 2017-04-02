@@ -60,6 +60,10 @@ public abstract class Projeto {
 		this.despesas = new Despesas();
 	}
 	
+	public Projeto(){
+		
+	}
+	
 	public Despesas getDespesas() {
 		return despesas;
 	}

@@ -9,6 +9,17 @@ import java.util.UUID;
 
 import projeto.Projeto;
 
+/**
+* RepositoryProjeto.
+* Classe onde esta armazenada a lista de projetos do sistema e que e responsavel por  fornecer informacoes sobre essa lista.
+*
+* @author Matheus de Souza Coutinho
+* @author Matheus Vasconcelos Figueiredo
+* 
+* @param projetos
+*           - lista de projetos armazenados.
+*/
+
 public class RepositoryProjeto {
 	private HashMap<Integer, Projeto> projetos;
 	

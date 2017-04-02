@@ -8,6 +8,17 @@ import participacao.Participacao;
 import participacao.Professor;
 import projeto.Projeto;
 
+/**
+* RepositoryAssociacao.
+* Classe onde esta armazenada a lista de associacoes do sistema e que e responsavel por  fornecer informacoes sobre essa lista.
+*
+* @author Matheus de Souza Coutinho
+* @author Matheus Vasconcelos Figueiredo
+* 
+* @param associacoes
+*           - lista de associacoes armazenadas.
+*/
+
 public class RepositoryAssociacao {
 	private ArrayList<Participacao> associacoes;
 	

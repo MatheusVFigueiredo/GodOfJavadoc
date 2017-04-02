@@ -104,4 +104,51 @@ public abstract class Participacao {
 		this.codprojeto = codprojeto;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codprojeto;
+		result = prime * result + ((cpfpessoa == null) ? 0 : cpfpessoa.hashCode());
+		result = prime * result + ((dataInicio == null) ? 0 : dataInicio.hashCode());
+		result = prime * result + qtdHorasSemanais;
+		result = prime * result + qtdMeses;
+		long temp;
+		temp = Double.doubleToLongBits(valorHora);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Participacao other = (Participacao) obj;
+		if (codprojeto != other.codprojeto)
+			return false;
+		if (cpfpessoa == null) {
+			if (other.cpfpessoa != null)
+				return false;
+		} else if (!cpfpessoa.equals(other.cpfpessoa))
+			return false;
+		if (dataInicio == null) {
+			if (other.dataInicio != null)
+				return false;
+		} else if (!dataInicio.equals(other.dataInicio))
+			return false;
+		if (qtdHorasSemanais != other.qtdHorasSemanais)
+			return false;
+		if (qtdMeses != other.qtdMeses)
+			return false;
+		if (Double.doubleToLongBits(valorHora) != Double.doubleToLongBits(other.valorHora))
+			return false;
+		return true;
+	}
+
+	
+	
 }
